@@ -112,7 +112,7 @@ class local_freattention(nn.Module):
         x = x*edgemap
         b, c, _, _ = x.size()
         y = self.max_pool(self.frecoder(dct.dct_2d(input))).view(b, c)
-        y = self.fc(y).view(b, c, 1, 1)
+        y = (self.fc(y)+y).view(b, c, 1, 1)
         return x * y.expand_as(x)+x
 
 class up_conv8(nn.Module):
